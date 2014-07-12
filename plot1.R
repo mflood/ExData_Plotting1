@@ -41,17 +41,15 @@ df$Date <- as.Date(df$Date, "%d/%m/%Y")
 valid_date_index <- df$Date == "2007-02-01" | df$Date== "2007-02-02"
 df <- df[valid_date_index, ]
 
-#hist(df$Global_active_power,
-#     col="red",
-#     main="Global Active Power",
-#     ylab="Frequency",
-#     xlab="Global Active Power (kilowatts)")
-
+# open png device
+#
 png(filename = "plot1.png",
     width = 480, height = 480,
     #bg = "white"
 )
 
+# plot histogram
+#
 hist(df$Global_active_power,
     col="red",
     main="Global Active Power",
@@ -59,5 +57,7 @@ hist(df$Global_active_power,
     xlab="Global Active Power (kilowatts)"
 )
 
+# turn off png
+#
 dev.off()
 
