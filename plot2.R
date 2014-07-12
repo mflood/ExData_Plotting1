@@ -1,4 +1,23 @@
-df = read.csv("household_power_consumption.txt",
+# plot2.R
+
+# Create data directory
+#
+if (!file.exists("data")) {
+    dir.create("data")
+}
+
+# Download and extract zip file if needed
+#
+if (! file.exists("data/household_power_consumption.txt")) {
+    download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",
+                   method="curl",
+                   destfile="data/source.zip")
+    unzip("data/source.zip", exdir="data")
+}
+
+# Only read the fist 69K Rows
+#
+df = read.csv("data/household_power_consumption.txt",
                nrows=69516,
                sep=";",
                na.strings="?",
@@ -12,22 +31,32 @@ df = read.csv("household_power_consumption.txt",
                              "numeric",
                              "numeric")
              )
+
+# Convert date column from factor to Date
+#
 df$Date <- as.Date(df$Date, "%d/%m/%Y")
+
+# Only keep the 2 dates, get rid of the other data
+#
 valid_date_index <- df$Date == "2007-02-01" | df$Date== "2007-02-02"
 df <- df[valid_date_index, ]
 
+# create new datetime column from the date and time columns
+#
 df$datetime <- strptime(paste(df$Date, df$Time), format="%Y-%m-%d %H:%M:%S")
 
-
+# This function creates the plot lines, but not the legend
+#
 do_plot <- function() {
     plot(df$datetime, df$Global_active_power,
           ylab="Global Active Power (kilowatts)",
           xlab=NA,
           type="l")
-
 }
 
 
+# Sends the plot and legend to a file
+#
 do_png_plot <- function(png_name) {
     png(filename = png_name,
         width = 480,
@@ -40,6 +69,6 @@ do_png_plot <- function(png_name) {
 }
 
 
-#do_plot()
+# Run the plot
 do_png_plot("plot2.png")
 

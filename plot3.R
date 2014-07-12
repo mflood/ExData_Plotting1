@@ -1,8 +1,23 @@
 # plot3.R
 
+# Create data directory
+#
+if (!file.exists("data")) {
+    dir.create("data")
+}
+
+# Download and extract zip file if needed
+#
+if (! file.exists("data/household_power_consumption.txt")) {
+    download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",
+                   method="curl",
+                   destfile="data/source.zip")
+    unzip("data/source.zip", exdir="data")
+}
+
 # Only read the fist 69K Rows
 #
-df = read.csv("household_power_consumption.txt",
+df = read.csv("data/household_power_consumption.txt",
                nrows=69516,
                sep=";",
                na.strings="?",
