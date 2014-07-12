@@ -73,7 +73,7 @@ do_png_plot <- function(png_name) {
     png(filename = png_name,
         width = 480,
         height = 480,
-        bg = "white"
+        bg = "transparent"
     )
     do_plot()
     do_legend()

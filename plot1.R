@@ -45,7 +45,7 @@ df <- df[valid_date_index, ]
 #
 png(filename = "plot1.png",
     width = 480, height = 480,
-    #bg = "white"
+    bg = "transparent"
 )
 
 # plot histogram
