@@ -41,15 +41,15 @@ df$Date <- as.Date(df$Date, "%d/%m/%Y")
 valid_date_index <- df$Date == "2007-02-01" | df$Date== "2007-02-02"
 df <- df[valid_date_index, ]
 
-hist(df$Global_active_power,
-     col="red",
-     main="Global Active Power",
-     ylab="Frequency",
-     xlab="Global Active Power (kilowatts)")
+#hist(df$Global_active_power,
+#     col="red",
+#     main="Global Active Power",
+#     ylab="Frequency",
+#     xlab="Global Active Power (kilowatts)")
 
 png(filename = "plot1.png",
     width = 480, height = 480,
-    bg = "white"
+    #bg = "white"
 )
 
 hist(df$Global_active_power,
